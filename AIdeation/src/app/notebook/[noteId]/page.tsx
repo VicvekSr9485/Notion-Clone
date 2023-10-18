@@ -6,6 +6,7 @@ import React from 'react'
 import { and, eq } from "drizzle-orm";
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { clerk } from "@/lib/clerk-server";
 
 type Props = {
     params: {
@@ -18,6 +19,8 @@ const NotebookPage = async ({ params: { noteId } }: Props) => {
     if (!userId) {
         return redirect("/dashboard");
     }
+
+    const user = await clerk.users.getUser(userId);
     const notes = await db
     .select()
     .from($notes)
@@ -35,6 +38,11 @@ const NotebookPage = async ({ params: { noteId } }: Props) => {
             <Link href="/dashboard">
                 <Button className="bg-green-600" size="sm">Back</Button>
             </Link>
+            <div className="w-3"></div>
+            <span className="font-semibold">
+                {user.firstName} {user.lastName}
+            </span>
+
             </div>
         </div>
     </div>
