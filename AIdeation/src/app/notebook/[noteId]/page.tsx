@@ -7,6 +7,7 @@ import { and, eq } from "drizzle-orm";
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { clerk } from "@/lib/clerk-server";
+import TipTapEditor from '@/components/TipTapEditor'
 
 type Props = {
     params: {
@@ -42,7 +43,13 @@ const NotebookPage = async ({ params: { noteId } }: Props) => {
             <span className="font-semibold">
                 {user.firstName} {user.lastName}
             </span>
-
+            <span className="inline-block mx-1">/</span>
+            <span className="text-stone-500 font-semibold">{note.name}</span>
+            <div className="ml-auto">DELETE BUTTON</div>
+            </div>
+            <div className="h-4"></div>
+            <div className="boder-stone-200 shadow-xl border rounded-lg px-16 py-8 w-full">
+                <TipTapEditor note={note}/>
             </div>
         </div>
     </div>
